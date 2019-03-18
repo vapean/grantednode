@@ -8,6 +8,7 @@ let getAll = (done) => {
     })
 }
 
+
 let create = ({ name, surname, gender, age, email, username, password, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token }, done) => {
 
     let passwordCrypt = bcrypt.hashSync(password, 10)
@@ -18,6 +19,7 @@ let create = ({ name, surname, gender, age, email, username, password, descripti
     })
 }
 
+
 let getByUsername = (username, done) => {
     db.get().query('select * from granted.usuarios where username= ?', [username], (err, rows) => {
         console.log(done)
@@ -26,14 +28,14 @@ let getByUsername = (username, done) => {
     })
 }
 
+
 let insertToken = (token, id, done) => {
     db.get().query('update granted.usuarios set token= ? where id= ?', [token, id], (err, result) => {
         if (err) return done(err)
         done(null, result)
     })
-
-    
 }
+
 
 let getUserByToken = (token, done) => {
     db.get().query('select * from granted.usuarios where token= ?', [token], (err, rows) => {
@@ -43,15 +45,13 @@ let getUserByToken = (token, done) => {
     })
 }
 
-let updateUser= ({ name, surname, gender, age, email, username, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token }, done) => {
 
+let updateUser= ({ name, surname, gender, age, email, username, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token }, done) => {
     db.get().query('UPDATE granted.usuarios SET name= ?, surname= ?, gender= ?, age= ?, email= ?, username= ?, description= ?, country_origin= ?, province_origin= ?, country_destination= ?, province_destination= ?, study_field= ?, study_level= ?, image= ?  WHERE token= ?',[name, surname, gender, age, email, username, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token], (err, result) => {
         if (err) return done(err)
         done(null, result)
     })
 }
-
-
 
 
 module.exports = {
