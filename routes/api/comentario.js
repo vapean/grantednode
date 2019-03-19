@@ -25,6 +25,16 @@ router.post('/comentario/delete', (req, res) => {
     })
 });
 
+// POST http://localhost:3000/api/comentario/like
+router.post('/comentario/like', (req, res) => {
+    console.log(req.body.id) 
+    console.log(req.body.likes)
+    comentarioModel.likeComment(req.body.likes, req.body.id, (err, result) => {
+        if (err) return console.log(err.message)
+        res.json({'likes': req.body.likes+1})
+    })
+});
+
 
 
 
