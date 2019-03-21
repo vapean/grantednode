@@ -58,5 +58,12 @@ router.post('/becas/usuario', async(req, res) => {
     res.json(result)
 })
 
+router.post('/becas/id', (req, res) => {
+    becaModel.getBecasById(req.body.beca_id, (err, result) => {
+        console.log(err)
+        res.json(result)
+    })
+})
+
 
 module.exports = router;

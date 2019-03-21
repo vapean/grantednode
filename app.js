@@ -11,11 +11,11 @@ var apiUsuarioRouter = require('./routes/api/usuario')
 var apiBlogsRouter = require('./routes/api/blog')
 var apiComentariosRouter = require('./routes/api/comentario')
 var apiBecaRouter = require('./routes/api/beca')
+var mailRouter = require('./routes/contacto')
 
 
 
 var cors = require('cors')
-
 var app = express();
 
 // view engine setup
@@ -37,6 +37,8 @@ app.use('/api', apiUsuarioRouter)
 app.use('/api', apiBlogsRouter)
 app.use('/api', apiComentariosRouter)
 app.use('/api', apiBecaRouter)
+app.use('/contacto', mailRouter)
+
 
 
 // catch 404 and forward to error handler
