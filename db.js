@@ -1,13 +1,21 @@
 const mysql = require('mysql')
 let pool= null
 let connect = (done) => {
+    // pool = mysql.createPool({
+    //       host:'127.0.0.1',
+    //       user: 'root',
+    //       password: 'root',
+    //       port: 8889,
+    //       database: 'granted'
+    // })
+
     pool = mysql.createPool({
-          host:'127.0.0.1',
-          user: 'root',
-          password: 'root',
-          port: 8889,
-          database: 'granted'
-    })
+        host:'127.0.0.1',
+        user: 'grantedw',
+        password: 'Caba22lla',
+        port: 3306,
+        database: 'granted'
+  })
     done()
 }
 
