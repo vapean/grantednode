@@ -10,7 +10,7 @@ let connect = (done) => {
     // })
 
     pool = mysql.createPool({
-        host:'127.0.0.1',
+        host:'localhost',
         user: 'grantedw_admin',
         password: 'Caba22lla',
         port: 3306,
