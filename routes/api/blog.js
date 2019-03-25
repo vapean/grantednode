@@ -6,7 +6,7 @@ const comentarioModel = require('../../models/comentario.model')
 
 
 
-// GET http://localhost:3000/api/blogImportantes
+// GET http://localhost:3000/api/blog/importantes
 router.get('/blog/importantes', function (req, res) {
     blogModel.getBlogImportant((err, rows) => {
         if (err) return console.log(err.message)
