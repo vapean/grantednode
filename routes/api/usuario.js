@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt')
 let tokengn = require('tokengn')
+const Promise = require('bluebird')
 
 
 
