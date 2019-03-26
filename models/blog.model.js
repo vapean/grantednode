@@ -1,4 +1,5 @@
 const db = require('../db')
+const Promise = require('bluebird')
 
 let getBlogImportant = (done) => {
     db.get().query('SELECT * FROM granted.blog WHERE id<5', (err, rows) => {
