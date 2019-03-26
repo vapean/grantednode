@@ -2,14 +2,14 @@ const db = require('../db')
 const Promise = require('bluebird')
 
 let getAll = (done) => {
-    db.get().query('select * from granted.becas', (err, rows) => {
+    db.get().query('select * from becas', (err, rows) => {
         if (err) return done(err)
         done(null, rows)
     })
 }
 
 let getBecasByFiltro = ({ date, typology, country_origin, province_origin, country_destination, province_destination, study_field, study_level }, done) => {
-    let partefija = "SELECT * FROM granted.becas WHERE 1=1 "
+    let partefija = "SELECT * FROM becas WHERE 1=1 "
     console.log("Juan", country_origin);
     // if (date != null && date!= "") {
     //     partefija += " AND `date` LIKE '%" + date + "%' ";
@@ -95,7 +95,7 @@ let getBecasByFiltro = ({ date, typology, country_origin, province_origin, count
 
 let getBecasFav = (token) => {
     return new Promise((resolve, reject) => {
-        db.get().query('SELECT * FROM granted.`tabla_indices_becas_usuarios` WHERE fk_usuarios = (SELECT usuarios.id from granted.usuarios where token=?)', [token], (err, rows) => {
+        db.get().query('SELECT * FROM `tabla_indices_becas_usuarios` WHERE fk_usuarios = (SELECT usuarios.id from usuarios where token=?)', [token], (err, rows) => {
             if (err) reject(err)
             resolve(rows)
         })
@@ -103,14 +103,14 @@ let getBecasFav = (token) => {
 }
 
 let addBecaFav = (fk_becas, token, done) => {
-    db.get().query('INSERT INTO `tabla_indices_becas_usuarios` (`fk_becas`, `fk_usuarios`) VALUES (?, (SELECT usuarios.id from granted.usuarios where token= ?))', [fk_becas, token], (err, result) => {
+    db.get().query('INSERT INTO `tabla_indices_becas_usuarios` (`fk_becas`, `fk_usuarios`) VALUES (?, (SELECT usuarios.id from usuarios where token= ?))', [fk_becas, token], (err, result) => {
         if (err) return done(err)
         done(null, result)
     })
 }
 
 let deleteBecaFav = (fk_becas, token, done) => {
-    db.get().query('DELETE FROM `tabla_indices_becas_usuarios` WHERE `fk_becas`= ? AND `fk_usuarios`= (SELECT usuarios.id FROM granted.usuarios WHERE token= ?)', [fk_becas, token], (err, result) => {
+    db.get().query('DELETE FROM `tabla_indices_becas_usuarios` WHERE `fk_becas`= ? AND `fk_usuarios`= (SELECT usuarios.id FROM usuarios WHERE token= ?)', [fk_becas, token], (err, result) => {
         if (err) return done(err)
         done(null, result)
     })
@@ -119,7 +119,7 @@ let deleteBecaFav = (fk_becas, token, done) => {
 
 let getBecasFavUsuario = (token) => {
     return new Promise((resolve, reject) => {
-        db.get().query('SELECT * FROM granted.`tabla_indices_becas_usuarios`, granted.`becas` WHERE fk_becas= becas.`id` AND fk_usuarios = (SELECT usuarios.id from granted.usuarios where token=?)', [token], (err, rows) => {
+        db.get().query('SELECT * FROM `tabla_indices_becas_usuarios`, `becas` WHERE fk_becas= becas.`id` AND fk_usuarios = (SELECT usuarios.id from usuarios where token=?)', [token], (err, rows) => {
             if (err) reject(err)
             resolve(rows)
         })
@@ -128,7 +128,7 @@ let getBecasFavUsuario = (token) => {
 
 
 getBecasById = (beca_id, done) => {
-    db.get().query('SELECT * FROM granted.becas WHERE beca_id = ?', [beca_id], (err, rows) => {
+    db.get().query('SELECT * FROM becas WHERE beca_id = ?', [beca_id], (err, rows) => {
         console.log(done)
         if (err) return done(err)
         done(null, rows)

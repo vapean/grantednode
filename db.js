@@ -1,5 +1,5 @@
 const mysql = require('mysql')
-let pool= null
+let pool = null
 let connect = (done) => {
     // pool = mysql.createPool({
     //       host:'127.0.0.1',
@@ -10,12 +10,12 @@ let connect = (done) => {
     // })
 
     pool = mysql.createPool({
-        host:'localhost',
+        host: 'localhost',
         user: 'grantedw_admin',
         password: 'Caba22lla',
         port: 3306,
         database: 'grantedw_production'
-  })
+    })
     done()
 }
 
