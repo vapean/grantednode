@@ -2,7 +2,7 @@ const db = require('../db')
 const Promise = require('bluebird')
 
 let getBlogImportant = (done) => {
-    db.get().query('SELECT * FROM granted.blog WHERE id<5', (err, rows) => {
+    db.get().query('SELECT * FROM blog WHERE id<5', (err, rows) => {
         if (err) return done(err)
         done(null, rows)
     })
@@ -18,7 +18,7 @@ let getBlogRecent = (done) => {
 
 
 let getPostById = (id, done) => {
-    db.get().query('SELECT * FROM granted.blog WHERE id= ?', [id], (err, rows) => {
+    db.get().query('SELECT * FROM blog WHERE id= ?', [id], (err, rows) => {
         console.log(done)
         if (err) return done(err)
         done(null, rows)
@@ -26,7 +26,7 @@ let getPostById = (id, done) => {
 }
 
 // let getBlogByKeyword= (keyword, done) => {
-//     db.get().query('SELECT * FROM granted.blog WHERE key_words LIKE ? ', ['%'+keyword+'%'], (err, rows) => {
+//     db.get().query('SELECT * FROM blog WHERE key_words LIKE ? ', ['%'+keyword+'%'], (err, rows) => {
 //         console.log(done)
 //         if (err) return done(err)
 //         done(null, rows)
@@ -35,7 +35,7 @@ let getPostById = (id, done) => {
 
 
 let getAllCategorias = (done) => {
-    db.get().query('SELECT * FROM granted.categorias', (err, rows) => {
+    db.get().query('SELECT * FROM categorias', (err, rows) => {
         if (err) return done(err)
         done(null, rows)
     })
@@ -43,7 +43,7 @@ let getAllCategorias = (done) => {
 
 
 let getBlogByCategoria = (categoria, done) => {
-    db.get().query('SELECT blog.title, blog.description, blog.imagen_2, categorias.name, blog.id FROM granted.categorias, granted.blog, tabla_indices_categorias_blog WHERE fk_categorias= ? AND fk_blog=blog.id AND fk_categorias=categorias.id', [categoria], (err, rows) => {
+    db.get().query('SELECT blog.title, blog.description, blog.imagen_2, categorias.name, blog.id FROM categorias, blog, tabla_indices_categorias_blog WHERE fk_categorias= ? AND fk_blog=blog.id AND fk_categorias=categorias.id', [categoria], (err, rows) => {
         console.log(done)
         if (err) return done(err)
         done(null, rows)

@@ -2,7 +2,7 @@ const db = require('../db')
 const bcrypt = require('bcrypt')
 
 let getAll = (done) => {
-    db.get().query('select * from granted.usuarios', (err, rows) => {
+    db.get().query('select * from usuarios', (err, rows) => {
         if (err) return done(err)
         done(null, rows)
     })
@@ -13,7 +13,7 @@ let create = ({ name, surname, gender, age, email, username, password, descripti
 
     let passwordCrypt = bcrypt.hashSync(password, 10)
 
-    db.get().query('insert into granted.usuarios values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, surname, gender, age, email, username, passwordCrypt, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token], (err, result) => {
+    db.get().query('insert into usuarios values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, surname, gender, age, email, username, passwordCrypt, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token], (err, result) => {
         if (err) return done(err)
         done(null, result)
     })
@@ -21,7 +21,7 @@ let create = ({ name, surname, gender, age, email, username, password, descripti
 
 
 let getByUsername = (username, done) => {
-    db.get().query('select * from granted.usuarios where username= ?', [username], (err, rows) => {
+    db.get().query('select * from usuarios where username= ?', [username], (err, rows) => {
         console.log(done)
         if (err) return done(err)
         done(null, rows)
@@ -30,7 +30,7 @@ let getByUsername = (username, done) => {
 
 
 let insertToken = (token, id, done) => {
-    db.get().query('update granted.usuarios set token= ? where id= ?', [token, id], (err, result) => {
+    db.get().query('update usuarios set token= ? where id= ?', [token, id], (err, result) => {
         if (err) return done(err)
         done(null, result)
     })
@@ -38,7 +38,7 @@ let insertToken = (token, id, done) => {
 
 
 let getUserByToken = (token, done) => {
-    db.get().query('select * from granted.usuarios where token= ?', [token], (err, rows) => {
+    db.get().query('select * from usuarios where token= ?', [token], (err, rows) => {
         console.log(done)
         if (err) return done(err)
         done(null, rows)
@@ -47,7 +47,7 @@ let getUserByToken = (token, done) => {
 
 
 let updateUser= ({ name, surname, gender, age, email, username, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token }, done) => {
-    db.get().query('UPDATE granted.usuarios SET name= ?, surname= ?, gender= ?, age= ?, email= ?, username= ?, description= ?, country_origin= ?, province_origin= ?, country_destination= ?, province_destination= ?, study_field= ?, study_level= ?, image= ?  WHERE token= ?',[name, surname, gender, age, email, username, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token], (err, result) => {
+    db.get().query('UPDATE usuarios SET name= ?, surname= ?, gender= ?, age= ?, email= ?, username= ?, description= ?, country_origin= ?, province_origin= ?, country_destination= ?, province_destination= ?, study_field= ?, study_level= ?, image= ?  WHERE token= ?',[name, surname, gender, age, email, username, description, country_origin, province_origin, country_destination, province_destination, study_field, study_level, image, token], (err, result) => {
         if (err) return done(err)
         done(null, result)
     })
