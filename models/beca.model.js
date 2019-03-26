@@ -1,4 +1,5 @@
 const db = require('../db')
+const Promise = require('bluebird')
 
 let getAll = (done) => {
     db.get().query('select * from granted.becas', (err, rows) => {
